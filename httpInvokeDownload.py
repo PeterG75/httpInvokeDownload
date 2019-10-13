@@ -35,8 +35,8 @@ class Serv(BaseHTTPRequestHandler):
 			self.end_headers()
 			
 			# Decoding as utf-8 may cause issues in certain cases? I'll have to check.
-			file_contents = body.decode('utf-8')
-			with open(filename, "w") as f:
+			file_contents = body
+			with open(filename, "wb") as f:
 				f.write(file_contents)
 				
 			self.log_message("File downloaded successfully and saved locally to " + filename)
@@ -63,7 +63,7 @@ else:
 if not args.p:
 	LPORT = 8000
 else:
-	LPORT= args.p
+	LPORT= int(args.p)
 
 if not args.v:
 	print(f"[-] ERROR: A verification string must be provided.")
